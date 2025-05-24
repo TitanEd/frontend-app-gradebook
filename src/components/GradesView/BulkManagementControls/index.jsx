@@ -4,19 +4,19 @@ import React from 'react';
 import NetworkButton from 'components/NetworkButton';
 import ImportGradesButton from '../ImportGradesButton';
 
-import useBulkManagementControlsData from './hooks';
+import { useBulkManagementControls } from './hooks'; // Changed to correct hook name
 import messages from './messages';
 
 /**
  * <BulkManagementControls />
  * Provides download buttons for Bulk Management and Intervention reports, only if
- * showBulkManagement is set in redus.
+ * showBulkManagement is set in redux.
  */
 export const BulkManagementControls = () => {
   const {
     show,
     handleClickExportGrades,
-  } = useBulkManagementControlsData();
+  } = useBulkManagementControls();
 
   if (!show) { return null; }
   return (

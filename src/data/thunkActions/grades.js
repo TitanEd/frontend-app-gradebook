@@ -33,6 +33,7 @@ export const fetchGrades = (overrides = {}) => (
     const fetchOptions = {
       ...selectors.root.localFilters(getState()),
       ...options,
+      cohort_id: cohort || null, // Explicitly add cohort_id for /api/grades/v1/gradebook/
     };
     return lms.api.fetch.gradebookData(
       fetchOptions.searchText || null,
