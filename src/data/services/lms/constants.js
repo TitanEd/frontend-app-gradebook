@@ -14,5 +14,5 @@ export const paramKeys = StrictDict({
   assignmentGradeMax: 'assignment_grade_max',
   courseGradeMin: 'course_grade_min',
   courseGradeMax: 'course_grade_max',
-  excludedCourseRoles: 'excludedCourseRoles',
+  excludedCourseRoles: 'excluded_course_roles', // Excludes staff and instructors from gradebook By TitanEd
 });
