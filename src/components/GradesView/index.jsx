@@ -44,7 +44,7 @@ export const GradesView = ({ updateQueryParams }) => {
 
       <h3>{stepHeadings.gradebook}</h3>
 
-      <div className="d-flex justify-content-between align-items-center mb-2">
+      <div className="d-flex justify-content-between align-items-center mb-2 step-2-content">
         <ScoreViewInput />
         <BulkManagementControls />
       </div>

@@ -1,0 +1,20 @@
+.gradebook-content {
+    width: 100% !important;
+}
+
+.page-gradebook {
+    display: block !important;
+}
+
+.step-2-content {
+    width: 100% !important;
+    
+    @media (max-width: 767.98px) {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        
+        > *:first-child {
+            margin-bottom: 1rem;
+        }
+    }
+}
