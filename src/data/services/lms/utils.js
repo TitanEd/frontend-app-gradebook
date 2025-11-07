@@ -40,3 +40,38 @@ export const filterQuery = (options) => Object.values(filters)
     (obj, filter) => ({ ...obj, [filter]: options[filter] }),
     {},
   );
+
+/**
+ * appendBrowserTimezoneToUrl(url)
+ * Appends browser timezone to URL as query parameter
+ * @param {string} url - base url string
+ * @return {string} - url with timezone query parameter
+ */
+export const appendBrowserTimezoneToUrl = (url) => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}timezone=${encodeURIComponent(timezone)}`;
+};
+
+/**
+ * normalizeCourseHomeCourseMetadata(data, rootSlug)
+ * Normalizes course metadata response and extracts course information
+ * @param {object} data - raw course metadata response
+ * @param {string} rootSlug - root slug (optional)
+ * @return {object} - normalized course metadata
+ */
+export const normalizeCourseHomeCourseMetadata = (data, rootSlug = '') => {
+  // Extract course name from various possible fields
+  const courseName = data?.name
+    || data?.display_name
+    || data?.course_name
+    || data?.title
+    || '';
+
+  return {
+    name: courseName,
+    displayName: courseName,
+    rootSlug: rootSlug || data?.rootSlug || '',
+    ...data,
+  };
+};

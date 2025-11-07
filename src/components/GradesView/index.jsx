@@ -42,7 +42,7 @@ export const GradesView = ({ updateQueryParams }) => {
       <FilterBadges handleClose={handleFilterBadgeClose} />
       <StatusAlerts />
 
-      <h3>{stepHeadings.gradebook}</h3>
+      <h3 className="gradebook-step-heading">{stepHeadings.gradebook}</h3>
 
       <div className="d-flex justify-content-between align-items-center mb-2 step-2-content">
         <ScoreViewInput />

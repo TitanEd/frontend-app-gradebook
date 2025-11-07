@@ -109,6 +109,7 @@ const simpleSelectors = simpleSelectorFactory(
   [
     'activeView',
     'courseId',
+    'courseName',
     'filters',
     'searchValue',
     'showImportSuccessToast',

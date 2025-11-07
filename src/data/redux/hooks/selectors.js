@@ -26,6 +26,7 @@ export const app = StrictDict({
   useCourseGradeLimits: selectorHook(selectors.app.courseGradeLimits),
   useCourseGradeFilterValidity: selectorHook(selectors.app.courseGradeFilterValidity),
   useCourseId: selectorHook(selectors.app.courseId),
+  useCourseName: selectorHook(selectors.app.courseName),
   useModalData: selectorHook(selectors.app.modalData),
   useSearchValue: selectorHook(selectors.app.searchValue),
   useShowImportSuccessToast: selectorHook(selectors.app.showImportSuccessToast),
