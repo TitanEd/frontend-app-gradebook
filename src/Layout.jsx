@@ -380,7 +380,7 @@ const Layout = () => {
               <Sidebar
                 buttons={sidebarItems}
                 onNavigate={handleNavigate}
-                presentPath={`/course/${presentPath}`}
+                presentPath={`/learning/course/${presentPath}`}
               />
             )}
           </div>

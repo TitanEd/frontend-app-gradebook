@@ -12,12 +12,12 @@ const { default: CustomGradebookHeader } = await import('./src/components/Gradeb
 
 {% raw %}
 
-config = {
-  ...config,
-  ...process.env,
-}
-
-config.pluginSlots = {
+const getPluginSlots = () => {
+    if (typeof window !== 'undefined' && localStorage.getItem('oldUI') === 'true') {
+      return {};
+    }
+  
+    return {
     gradebook_header_plugin_slot: {
         plugins: [
           {
@@ -31,7 +31,10 @@ config.pluginSlots = {
           },
         ],
       },
-}
+} };
+
+// Load environment variables from .env file
+config.pluginSlots = getPluginSlots();
 
 {% endraw %}
 """
