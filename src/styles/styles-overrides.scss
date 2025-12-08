@@ -144,3 +144,11 @@
         color: var(--primary) !important;
     }
 }
+
+@media (max-width: 768px) {
+  .mobile-view-intervention-report {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
