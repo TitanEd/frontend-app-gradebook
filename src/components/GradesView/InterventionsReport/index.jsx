@@ -22,11 +22,11 @@ export const InterventionsReport = () => {
 
   return (
     <div>
-      <h4 className="mt-0">
+      <h4 className="mt-0 intervention-report-title">
         {formatMessage(messages.title)}
       </h4>
       <div
-        className="d-flex justify-content-between align-items-center"
+        className="d-flex justify-content-between align-items-center mobile-view-intervention-report"
       >
         <div className="intervention-report-description">
           {formatMessage(messages.description)}
