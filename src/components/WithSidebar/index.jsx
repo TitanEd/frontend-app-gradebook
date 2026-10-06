@@ -21,18 +21,18 @@ import thunkActions from 'data/thunkActions';
  */
 export class WithSidebar extends React.Component {
   get sidebarClassNames() {
-    return classNames('sidebar', { open: this.props.open, 'd-none': this.props.isClosed });
+    return classNames('with-sidebar', { open: this.props.open, 'd-none': this.props.isClosed });
   }
 
   get contentClassNames() {
-    return classNames('sidebar-contents', 'position-relative', {
+    return classNames('with-sidebar-contents', 'position-relative', {
       opening: this.props.isOpening,
     });
   }
 
   render() {
     return (
-      <div className="d-flex sidebar-container page-gradebook">
+      <div className="d-flex with-sidebar-container page-gradebook">
         <aside className={this.sidebarClassNames} onTransitionEnd={this.props.handleSlideDone}>
           { this.props.sidebar }
         </aside>

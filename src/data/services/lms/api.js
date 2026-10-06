@@ -24,7 +24,7 @@ const tracks = () => get(urls.getTracksUrl());
  * fetches updated gradebook data based on current filter selections.
  * Raises an error if assignment grade limits are set, but not assignment.
  * @param {string} searchText - search text filter
- * @param {nunber} cohort - selected cohort filter
+ * @param {number} cohort - selected cohort filter
  * @param {string} track - selected track filter
  * @param {object} options - additional optional filter values
  * @return {Promise} - get response
@@ -34,18 +34,23 @@ const gradebookData = (searchText, cohort, track, options = {}) => {
     throw new Error(messages.errors.missingAssignment);
   }
   const queryParams = {
-    [paramKeys.pageSize]: pageSize,
-    [paramKeys.userContains]: searchText,
-    [paramKeys.cohortId]: cohort,
-    [paramKeys.enrollmentMode]: track,
-    [paramKeys.courseGradeMax]: options.courseGradeMax,
-    [paramKeys.courseGradeMin]: options.courseGradeMin,
+    [paramKeys.pageSize]: options.page_size || pageSize,
+    [paramKeys.userContains]: searchText || null,
+    [paramKeys.cohortId]: options.cohort_id || cohort || null,
+    [paramKeys.track]: track || null,
+    [paramKeys.courseGradeMax]: options.courseGradeMax || null,
+    [paramKeys.courseGradeMin]: options.courseGradeMin || null,
     [paramKeys.excludedCourseRoles]: options.includeCourseRoleMembers ? null : ['all'],
-    [paramKeys.assignment]: options.assignment,
-    [paramKeys.assignmentGradeMax]: options.assignmentGradeMax,
-    [paramKeys.assignmentGradeMin]: options.assignmentGradeMin,
+    [paramKeys.assignment]: options.assignment || null,
+    [paramKeys.assignmentGradeMax]: options.assignmentGradeMax || null,
+    [paramKeys.assignmentGradeMin]: options.assignmentGradeMin || null,
   };
-  return get(stringifyUrl(urls.getGradebookUrl(), queryParams));
+  // Filter out null or undefined values to avoid invalid query parameters
+  /* eslint-disable no-unused-vars */
+  const filteredQueryParams = Object.fromEntries(
+    Object.entries(queryParams).filter(([_, value]) => value != null),
+  );
+  return get(stringifyUrl(urls.getGradebookUrl(), filteredQueryParams));
 };
 
 /**

@@ -41,6 +41,7 @@ export const useGradebookTableData = () => {
     ),
     [Headings.email]: (<Fields.Text value={entry.email} />),
     [Headings.totalGrade]: `${roundGrade(entry.percent * 100)}${getLocalizedPercentSign()}`,
+    [Headings.fullName]: entry.full_name || 'N/A',
     ...entry.section_breakdown.reduce((acc, subsection) => ({
       ...acc,
       [subsection.label]: <GradeButton {...{ entry, subsection }} />,

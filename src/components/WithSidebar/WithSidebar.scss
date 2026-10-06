@@ -1,10 +1,10 @@
 $sidebar-width: 350px;
 
-.sidebar-contents {
+.with-sidebar-contents {
     overflow-x: auto;
     transition: margin 300ms cubic-bezier(0.4,0,0.2,1);
     margin-left: 0;
-    .sidebar.open + & {
+    .with-sidebar.open + & {
         margin-left: $sidebar-width;
     }
     &.opening {
@@ -19,11 +19,11 @@ $sidebar-width: 350px;
     padding: 15px;
 }
 
-.sidebar-container .collapsible {
+.with-sidebar-container .collapsible {
     margin-bottom: 1em;
 }
 
-.sidebar {
+.with-sidebar {
     height: 100%;
     width: $sidebar-width;
     position: absolute;

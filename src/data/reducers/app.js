@@ -7,6 +7,7 @@ import gradesActions from '../actions/grades';
 
 const initialState = {
   courseId: '',
+  courseName: '',
   activeView: views.grades,
   filters: {
     assignmentGradeMax: initialFilters.assignmentGradeMax,
@@ -39,6 +40,8 @@ const app = (state = initialState, { type, payload } = {}) => {
       return { ...state, modalState: { ...initialState.modalState } };
     case actions.setCourseId.toString():
       return { ...state, courseId: payload };
+    case actions.setCourseName.toString():
+      return { ...state, courseName: payload };
     case actions.filterMenu.startTransition.toString():
       return {
         ...state,
