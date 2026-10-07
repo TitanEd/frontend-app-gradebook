@@ -6,6 +6,7 @@ import messages from './messages';
 export const useGradebookHeaderData = () => {
   const activeView = selectors.app.useActiveView();
   const courseId = selectors.app.useCourseId();
+  const courseName = selectors.app.useCourseName();
   const areGradesFrozen = selectors.assignmentTypes.useAreGradesFrozen();
   const canUserViewGradebook = selectors.roles.useCanUserViewGradebook();
   const showBulkManagement = selectors.root.useShowBulkManagement();
@@ -25,6 +26,7 @@ export const useGradebookHeaderData = () => {
     areGradesFrozen,
     canUserViewGradebook,
     courseId,
+    courseName,
     showBulkManagement,
 
     handleToggleViewClick,

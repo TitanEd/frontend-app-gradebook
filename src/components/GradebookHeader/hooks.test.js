@@ -14,6 +14,7 @@ jest.mock('data/redux/hooks', () => ({
     app: {
       useActiveView: jest.fn(),
       useCourseId: jest.fn(),
+      useCourseName: jest.fn(),
     },
     assignmentTypes: {
       useAreGradesFrozen: jest.fn(),
@@ -31,6 +32,8 @@ const activeView = 'test-active-view';
 selectors.app.useActiveView.mockReturnValue(activeView);
 const courseId = 'test-course-id';
 selectors.app.useCourseId.mockReturnValue(courseId);
+const courseName = 'test-course-name';
+selectors.app.useCourseName.mockReturnValue(courseName);
 const areGradesFrozen = 'test-are-grades-frozen';
 selectors.assignmentTypes.useAreGradesFrozen.mockReturnValue(areGradesFrozen);
 const canUserViewGradebook = 'test-can-user-view-gradebook';
@@ -48,6 +51,7 @@ describe('useGradebookHeaderData hooks', () => {
       out = useGradebookHeaderData();
       expect(selectors.app.useActiveView).toHaveBeenCalled();
       expect(selectors.app.useCourseId).toHaveBeenCalled();
+      expect(selectors.app.useCourseName).toHaveBeenCalled();
       expect(selectors.assignmentTypes.useAreGradesFrozen).toHaveBeenCalled();
       expect(selectors.roles.useCanUserViewGradebook).toHaveBeenCalled();
       expect(selectors.root.useShowBulkManagement).toHaveBeenCalled();
@@ -60,6 +64,7 @@ describe('useGradebookHeaderData hooks', () => {
       expect(out.areGradesFrozen).toEqual(areGradesFrozen);
       expect(out.canUserViewGradebook).toEqual(canUserViewGradebook);
       expect(out.courseId).toEqual(courseId);
+      expect(out.courseName).toEqual(courseName);
       expect(out.showBulkManagement).toEqual(showBulkManagement);
     });
     describe('handleToggleViewClick', () => {

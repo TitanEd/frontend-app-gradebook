@@ -43,6 +43,13 @@ describe('app reducer', () => {
         ).toEqual({ ...testingState, courseId: testValue });
       });
     });
+    describe('appActions.setCourseName', () => {
+      it('loads the courseName from the payload', () => {
+        expect(
+          app(testingState, appActions.setCourseName(testValue)),
+        ).toEqual({ ...testingState, courseName: testValue });
+      });
+    });
     describe('appActions.filterMenu.startTransition', () => {
       it('sets filterMenu.transitioning to true', () => {
         expect(
