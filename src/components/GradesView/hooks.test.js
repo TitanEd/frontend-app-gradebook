@@ -17,7 +17,6 @@ jest.mock('data/redux/hooks', () => ({
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useContext: jest.fn(context => context),
-  useEffect: (effect) => effect(),
 }));
 
 jest.mock('@edx/frontend-platform/i18n', () => ({
@@ -47,9 +46,6 @@ describe('useGradesViewData', () => {
     it('initializes redux hooks', () => {
       expect(thunkActions.grades.useFetchGrades).toHaveBeenCalled();
       expect(actions.filters.useResetFilters).toHaveBeenCalled();
-    });
-    it('fetches grades when the view mounts', () => {
-      expect(fetchGrades).toHaveBeenCalled();
     });
   });
   describe('output', () => {

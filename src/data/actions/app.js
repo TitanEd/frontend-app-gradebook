@@ -13,13 +13,6 @@ const closeModal = createAction('closeModal');
  */
 const setCourseId = createAction('setCourseId');
 
-/**
- * setCourseName(courseName)
- * loads course name into local app state
- * @param {string} courseName - course name from app context
- */
-const setCourseName = createAction('setCourseName');
-
 const filterMenu = StrictDict({
   endTransition: createAction('filterMenu/endTransition'),
   startTransition: createAction('filterMenu/startTransition'),
@@ -79,7 +72,6 @@ export default StrictDict({
   closeModal,
   filterMenu,
   setCourseId,
-  setCourseName,
   setLocalFilter,
   setModalState,
   setModalStateFromTable,

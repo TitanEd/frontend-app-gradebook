@@ -1,51 +1,72 @@
-/* eslint-disable react/prop-types */
+import React from 'react';
+
+import { defineMessages, useIntl } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 import { LmsBook } from '@openedx/paragon/icons';
-import { getConfig } from '@edx/frontend-platform';
-import React from 'react';
-import useGradebookHeaderData from './hooks';
 
-const CustomGradebookHeader = (props) => {
+import { instructorDashboardUrl } from 'data/services/lms/urls';
+import getLearnerDashboardUrl from '../../utils/getLearnerDashboardUrl';
+import useCourseName from './customHooks';
+import useGradebookHeaderData from './hooks';
+import messages from './messages';
+
+const customHeaderMessages = defineMessages({
+  loadingTitle: {
+    id: 'gradebook.CustomGradebookHeader.loadingTitle',
+    defaultMessage: 'Loading...',
+    description: 'Fallback title while course name is loading in custom gradebook header',
+  },
+  myCourses: {
+    id: 'gradebook.CustomGradebookHeader.myCourses',
+    defaultMessage: 'My Courses',
+    description: 'Breadcrumb link label back to learner dashboard my courses',
+  },
+});
+
+/**
+ * <CustomGradebookHeader />
+ * Copy of <GradebookHeader /> for the custom UI: breadcrumb + course name
+ * title instead of the "Back to Dashboard" link and course id.
+ */
+const CustomGradebookHeader = () => {
+  const { formatMessage } = useIntl();
   const {
-    formatMessage,
-    messages,
-    courseId,
-    showBulkManagement,
-    handleToggleViewClick,
-    toggleViewMessage,
     areGradesFrozen,
     canUserViewGradebook,
-    dashboardUrl,
-  } = props;
+    courseId,
+    handleToggleViewClick,
+    showBulkManagement,
+    toggleViewMessage,
+  } = useGradebookHeaderData();
+  const dashboardUrl = instructorDashboardUrl();
+  const courseName = useCourseName(courseId);
 
-  const { courseName } = useGradebookHeaderData();
-
-  // Display course name if available, otherwise fall back to courseId
-  const displayCourseName = courseName || 'Loading...';
-  const isLoading = displayCourseName === 'Loading...';
-  const isClickable = !isLoading && dashboardUrl;
-  const myCoursesUrl = `https://${getConfig().BASE_URL}/learner-dashboard/my-courses`;
+  const displayCourseName = courseName || formatMessage(customHeaderMessages.loadingTitle);
+  const openMyCourses = () => { window.location.href = getLearnerDashboardUrl('/my-courses'); };
 
   return (
     <>
       <div className="ca-breadcrumb-bg">
         <div className="ca-breadcrumb-container">
           <div className="ca-breadcrumb">
-            <span className="ca-breadcrumb-icon" onClick={() => window.location.href = myCoursesUrl}>
+            <span
+              className="ca-breadcrumb-icon"
+              role="link"
+              tabIndex={0}
+              onClick={openMyCourses}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openMyCourses();
+                }
+              }}
+            >
               <LmsBook className="custom-icon" />
-              My Courses
+              {formatMessage(customHeaderMessages.myCourses)}
             </span>
             <span className="ca-breadcrumb-divider">/</span>
-            {isClickable ? (
-              <a
-                href={dashboardUrl}
-                className="ca-breadcrumb-current breadcrumb-with-pointer"
-                style={{
-                  cursor: 'pointer',
-                  textDecoration: 'none',
-                //   color: 'inherit',
-                }}
-              >
+            {courseName ? (
+              <a href={dashboardUrl} className="ca-breadcrumb-current breadcrumb-with-pointer">
                 {displayCourseName}
               </a>
             ) : (
@@ -64,9 +85,9 @@ const CustomGradebookHeader = (props) => {
         </div>
         <div>
           {showBulkManagement && (
-          <Button variant="tertiary" onClick={handleToggleViewClick}>
-            {formatMessage(toggleViewMessage)}
-          </Button>
+            <Button variant="tertiary" onClick={handleToggleViewClick}>
+              {formatMessage(toggleViewMessage)}
+            </Button>
           )}
         </div>
       </div>

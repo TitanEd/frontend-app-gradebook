@@ -1,42 +1,44 @@
 from tutor import hooks
 from tutormfe.hooks import PLUGIN_SLOTS
 
-
 hooks.Filters.ENV_PATCHES.add_item(
-     (
-         "mfe-env-config-runtime-definitions-gradebook",
-         """
-        // This file contains configuration for plugins and environment variables.
+    (
+        "mfe-env-config-runtime-definitions-gradebook",
+        """
+// Runtime plugin configuration injected by Tutor
 const { PLUGIN_OPERATIONS, DIRECT_PLUGIN } = await import('@openedx/frontend-plugin-framework');
-const { default: CustomGradebookHeader } = await import('./src/components/GradebookHeader/CustomGradebookHeader');
+
+const { default: CustomLayout } = await import('./src/CustomLayout');
 
 {% raw %}
 
 const getPluginSlots = () => {
-    if (typeof window !== 'undefined' && localStorage.getItem('oldUI') === 'true') {
-      return {};
-    }
-  
-    return {
-    gradebook_header_plugin_slot: {
-        plugins: [
-          {
-            op: PLUGIN_OPERATIONS.Insert,
-            widget: {
-              id: 'gradebook_header_plugin_slot',
-              type: DIRECT_PLUGIN,
-              priority: 1,
-              RenderWidget: (props) => <CustomGradebookHeader {...props} />,
-            },
+  return {
+    // Replaces the stock gradebook (header, page, footer in src/App.jsx) with the custom UI.
+    app_layout_plugin_slot: {
+      keepDefault: false,
+      plugins: [
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        },
+        {
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {
+            id: 'custom_app_layout',
+            type: DIRECT_PLUGIN,
+            priority: 1,
+            RenderWidget: () => <CustomLayout />,
           },
-        ],
-      },
-} };
+        },
+      ],
+    },
+  };
+};
 
-// Load environment variables from .env file
 config.pluginSlots = getPluginSlots();
 
 {% endraw %}
-"""
-
-     ))
+""",
+    )
+)

@@ -1,21 +1,29 @@
-import { DIRECT_PLUGIN, PLUGIN_OPERATIONS } from '@openedx/frontend-plugin-framework';
-import CustomGradebookHeader from './src/components/GradebookHeader/CustomGradebookHeader';
+import React from 'react';
+
+import {
+  DIRECT_PLUGIN,
+  PLUGIN_OPERATIONS,
+} from '@openedx/frontend-plugin-framework';
+
+import CustomLayout from './src/CustomLayout';
 
 const getPluginSlots = () => {
-  if (typeof window !== 'undefined' && localStorage.getItem('oldUI') === 'true') {
-    return {};
-  }
-
   return {
-    gradebook_header_plugin_slot: {
+    // Replaces the stock gradebook (header, page, footer in src/App.jsx) with the custom UI.
+    app_layout_plugin_slot: {
+      keepDefault: false,
       plugins: [
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        },
         {
           op: PLUGIN_OPERATIONS.Insert,
           widget: {
-            id: 'gradebook_header_plugin_slot',
+            id: 'custom_app_layout',
             type: DIRECT_PLUGIN,
             priority: 1,
-            RenderWidget: (props) => <CustomGradebookHeader {...props} />, // Render "This is Gradebook Header" text
+            RenderWidget: () => <CustomLayout />,
           },
         },
       ],
