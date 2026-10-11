@@ -41,6 +41,11 @@ const messages = defineMessages({
     defaultMessage: 'No results found',
     description: 'Gradebook table message when no learner results were found',
   },
+  fullNameNotAvailable: {
+    id: 'gradebook.GradesView.table.fullNameNotAvailable',
+    defaultMessage: 'N/A',
+    description: 'Placeholder when a learner full name is not available in the gradebook table',
+  },
 });
 
 export default messages;

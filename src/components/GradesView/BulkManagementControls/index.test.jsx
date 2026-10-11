@@ -5,16 +5,14 @@ import NetworkButton from 'components/NetworkButton';
 import ImportGradesButton from '../ImportGradesButton';
 
 import { BulkManagementControls } from './index';
-import { useBulkManagementControls } from './hooks';
+import useBulkManagementControlsData from './hooks';
 import messages from './messages';
 
 jest.mock('components/NetworkButton', () => jest.fn(() => <div data-testid="network-button">NetworkButton</div>));
 jest.mock('../ImportGradesButton', () => jest.fn(() => (
   <div data-testid="import-grades-button">ImportGradesButton</div>
 )));
-jest.mock('./hooks', () => ({
-  useBulkManagementControls: jest.fn(),
-}));
+jest.mock('./hooks', () => jest.fn());
 
 initializeMocks();
 
@@ -27,7 +25,7 @@ describe('BulkManagementControls', () => {
 
   describe('when show is false', () => {
     beforeEach(() => {
-      useBulkManagementControls.mockReturnValue({
+      useBulkManagementControlsData.mockReturnValue({
         show: false,
         handleClickExportGrades: mockHandleClickExportGrades,
       });
@@ -54,7 +52,7 @@ describe('BulkManagementControls', () => {
 
   describe('when show is true', () => {
     beforeEach(() => {
-      useBulkManagementControls.mockReturnValue({
+      useBulkManagementControlsData.mockReturnValue({
         show: true,
         handleClickExportGrades: mockHandleClickExportGrades,
       });
@@ -118,18 +116,18 @@ describe('BulkManagementControls', () => {
   });
 
   describe('hook integration', () => {
-    it('calls useBulkManagementControls hook', () => {
-      useBulkManagementControls.mockReturnValue({
+    it('calls useBulkManagementControlsData hook', () => {
+      useBulkManagementControlsData.mockReturnValue({
         show: true,
         handleClickExportGrades: mockHandleClickExportGrades,
       });
 
       render(<BulkManagementControls />);
-      expect(useBulkManagementControls).toHaveBeenCalledTimes(1);
+      expect(useBulkManagementControlsData).toHaveBeenCalledTimes(1);
     });
 
     it('uses the show value from hook to determine rendering', () => {
-      useBulkManagementControls.mockReturnValue({
+      useBulkManagementControlsData.mockReturnValue({
         show: false,
         handleClickExportGrades: mockHandleClickExportGrades,
       });
@@ -137,7 +135,7 @@ describe('BulkManagementControls', () => {
       render(<BulkManagementControls />);
       expect(screen.queryByTestId('network-button')).not.toBeInTheDocument();
 
-      useBulkManagementControls.mockReturnValue({
+      useBulkManagementControlsData.mockReturnValue({
         show: true,
         handleClickExportGrades: mockHandleClickExportGrades,
       });
@@ -148,7 +146,7 @@ describe('BulkManagementControls', () => {
 
     it('passes handleClickExportGrades from hook to NetworkButton', () => {
       const customHandler = jest.fn();
-      useBulkManagementControls.mockReturnValue({
+      useBulkManagementControlsData.mockReturnValue({
         show: true,
         handleClickExportGrades: customHandler,
       });

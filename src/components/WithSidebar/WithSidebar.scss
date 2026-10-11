@@ -1,14 +1,16 @@
 $sidebar-width: 350px;
+// Match brand _gradebook.scss — gap between open filter drawer and main column.
+$sidebar-gap: var(--pgn-spacing-spacer-3);
 
-.with-sidebar-contents {
+.sidebar-contents {
     overflow-x: auto;
     transition: margin 300ms cubic-bezier(0.4,0,0.2,1);
     margin-left: 0;
-    .with-sidebar.open + & {
-        margin-left: $sidebar-width;
+    .sidebar.open + & {
+        margin-left: calc(#{$sidebar-width} + #{$sidebar-gap});
     }
     &.opening {
-        width: calc(100vw - #{$sidebar-width});
+        width: calc(100vw - #{$sidebar-width} - #{$sidebar-gap});
     }
 }
 
@@ -19,11 +21,11 @@ $sidebar-width: 350px;
     padding: 15px;
 }
 
-.with-sidebar-container .collapsible {
+.sidebar-container .collapsible {
     margin-bottom: 1em;
 }
 
-.with-sidebar {
+.sidebar {
     height: 100%;
     width: $sidebar-width;
     position: absolute;
