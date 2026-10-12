@@ -21,6 +21,11 @@ const messages = defineMessages({
     defaultMessage: 'Include Course Team Members',
     description: 'Include Course Team Members filter label in Gradebook Filters',
   },
+  allOption: {
+    id: 'gradebook.GradebookFilters.allOption',
+    defaultMessage: 'All',
+    description: 'First option of the assignment type and assignment filters: no filter',
+  },
   assignment: {
     id: 'gradebook.GradebookFilters.assignmentFilterLabel',
     defaultMessage: 'Assignment',

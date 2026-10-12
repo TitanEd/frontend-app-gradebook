@@ -34,6 +34,11 @@ export const useSearchControlsData = () => {
     onClear,
     searchValue,
     inputLabel: formatMessage(messages.label),
+    screenReaderText: {
+      label: formatMessage(messages.label),
+      submitButton: formatMessage(messages.submitButton),
+      clearButton: formatMessage(messages.clearButton),
+    },
     hintText: formatMessage(messages.hint),
   };
 };

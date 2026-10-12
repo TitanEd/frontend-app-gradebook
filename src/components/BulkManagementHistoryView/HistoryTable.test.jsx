@@ -156,7 +156,7 @@ describe('HistoryTable', () => {
 
       const dataTableCall = DataTable.mock.calls[0][0];
       expect(dataTableCall.hasFixedColumnWidths).toBe(true);
-      expect(dataTableCall.columns).toBe(bulkManagementColumns);
+      expect(dataTableCall.columns).toEqual(bulkManagementColumns);
       expect(dataTableCall.className).toBe('table-striped');
       expect(dataTableCall.itemCount).toBe(mockBulkManagementHistory.length);
     });

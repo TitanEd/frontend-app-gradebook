@@ -1,5 +1,7 @@
+import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
+import { IntlProvider } from '@edx/frontend-platform/i18n';
 
 import urls from 'data/services/lms/urls';
 import { events, useCustomBulkManagementControls } from './customHooks';
@@ -14,6 +16,9 @@ jest.mock('data/services/lms/urls', () => ({
     gradeCsvUrl: jest.fn(() => 'http://lms.example/grades.csv'),
   },
 }));
+
+// The hook reads the translated "all" labels of the filter selects.
+const wrapper = ({ children }) => React.createElement(IntlProvider, { locale: 'en' }, children);
 
 const appendSelect = (id, value) => {
   const select = document.createElement('select');
@@ -41,7 +46,7 @@ describe('useCustomBulkManagementControls', () => {
 
   it('downloads a filtered grade csv for the selected cohort and track', async () => {
     const click = jest.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
-    const { result } = renderHook(() => useCustomBulkManagementControls());
+    const { result } = renderHook(() => useCustomBulkManagementControls(), { wrapper });
 
     await act(async () => {
       await result.current.handleClickExportGrades();

@@ -25,7 +25,7 @@ export const AssignmentTypeFilter = ({ updateQueryParams }) => {
         onChange={handleChange}
         disabled={isDisabled}
         options={[
-          <option key="0" value="">All</option>,
+          <option key="0" value="">{formatMessage(messages.allOption)}</option>,
           ...assignmentTypes.map(entry => (
             <option key={entry} value={entry}>{entry}</option>
           )),

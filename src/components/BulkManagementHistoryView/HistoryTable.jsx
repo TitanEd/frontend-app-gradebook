@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { DataTable } from '@openedx/paragon';
+import { useIntl } from '@edx/frontend-platform/i18n';
 
 import { bulkManagementColumns } from 'data/constants/app';
 import selectors from 'data/selectors';
 
 import ResultsSummary from './ResultsSummary';
+import messages from './messages';
 
 export const mapHistoryRows = ({
   resultsSummary,
@@ -29,15 +31,23 @@ export const mapHistoryRows = ({
  */
 export const HistoryTable = ({
   bulkManagementHistory,
-}) => (
-  <DataTable
-    data={bulkManagementHistory.map(mapHistoryRows)}
-    hasFixedColumnWidths
-    columns={bulkManagementColumns}
-    className="table-striped"
-    itemCount={bulkManagementHistory.length}
-  />
-);
+}) => {
+  const { formatMessage } = useIntl();
+  // Column headers in the language of the page (the constants hold the English ones).
+  const columns = bulkManagementColumns.map((column) => {
+    const message = messages[`${column.accessor}Header`];
+    return message ? { ...column, Header: formatMessage(message) } : column;
+  });
+  return (
+    <DataTable
+      data={bulkManagementHistory.map(mapHistoryRows)}
+      hasFixedColumnWidths
+      columns={columns}
+      className="table-striped"
+      itemCount={bulkManagementHistory.length}
+    />
+  );
+};
 HistoryTable.defaultProps = {
   bulkManagementHistory: [],
 };

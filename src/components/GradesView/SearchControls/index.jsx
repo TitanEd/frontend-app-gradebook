@@ -15,6 +15,7 @@ export const SearchControls = () => {
     searchValue,
     inputLabel,
     hintText,
+    screenReaderText,
   } = useSearchControlsData();
 
   return (
@@ -25,6 +26,7 @@ export const SearchControls = () => {
         onBlur={onBlur}
         onClear={onClear}
         value={searchValue}
+        screenReaderText={screenReaderText}
       />
       <small className="form-text text-muted search-help-text">
         {hintText}

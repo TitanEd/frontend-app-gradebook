@@ -6,6 +6,16 @@ const messages = defineMessages({
     defaultMessage: 'Search for a learner',
     description: 'Text prompting a user to use this functionality to search for a learner',
   },
+  submitButton: {
+    id: 'gradebook.GradesView.search.submitButton',
+    defaultMessage: 'Submit search',
+    description: 'Screen reader label of the button that starts the learner search',
+  },
+  clearButton: {
+    id: 'gradebook.GradesView.search.clearButton',
+    defaultMessage: 'Clear search',
+    description: 'Screen reader label of the button that empties the learner search box',
+  },
   hint: {
     id: 'gradebook.GradesView.search.hint',
     defaultMessage: 'Search by username, email, or student key',

@@ -29,7 +29,7 @@ const AssignmentFilter = ({ updateQueryParams }) => {
         onChange={handleChange}
         disabled={assignmentFilterOptions.length === 0}
         options={[
-          <option key="0" value="">All</option>,
+          <option key="0" value="">{formatMessage(messages.allOption)}</option>,
           ...filterOptions,
         ]}
       />
