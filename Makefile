@@ -49,7 +49,7 @@ pull_translations:
 	           translations/paragon/src/i18n/messages:paragon \
 	           translations/frontend-app-gradebook/src/i18n/messages:frontend-app-gradebook
 
-	$(intl_imports) frontend-platform paragon frontend-component-header frontend-component-footer frontend-app-gradebook
+	$(intl_imports) frontend-plugin-notifications frontend-platform paragon frontend-component-header frontend-component-footer frontend-app-gradebook
 
 # This target is used by CI.
 validate-no-uncommitted-package-lock-changes:
