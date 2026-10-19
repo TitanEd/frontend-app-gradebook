@@ -18,6 +18,16 @@ const CustomGradebookTable = ({
   const { formatMessage } = useIntl();
   const fullNameFallback = formatMessage(messages.fullNameNotAvailable);
 
+  // TELS fills the name and e-mail of every learner (data/services/lms/learnerDetails.js), so
+  // these two headings lose the "Master's track only" asterisk of the stock table.
+  const plainHeadings = {
+    [Headings.email]: formatMessage(messages.emailHeading),
+    [Headings.fullName]: formatMessage(messages.fullNameHeading),
+  };
+  const tableColumns = columns.map((column) => (
+    plainHeadings[column.accessor] ? { ...column, Header: plainHeadings[column.accessor] } : column
+  ));
+
   const rows = data.map((row, index) => ({
     ...row,
     [Headings.fullName]: grades[index]?.full_name || fullNameFallback,
@@ -26,7 +36,7 @@ const CustomGradebookTable = ({
   return (
     <div className="gradebook-container">
       <DataTable
-        columns={columns}
+        columns={tableColumns}
         data={rows}
         rowHeaderColumnKey="username"
         hasFixedColumnWidths

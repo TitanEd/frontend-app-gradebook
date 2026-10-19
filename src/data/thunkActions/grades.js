@@ -9,6 +9,7 @@ import grades from 'data/actions/grades';
 import { sortAlphaAsc } from 'data/actions/utils';
 import selectors from 'data/selectors';
 import lms from 'data/services/lms';
+import { withLearnerDetails } from 'data/services/lms/learnerDetails';
 
 import * as module from './grades';
 
@@ -39,7 +40,7 @@ export const fetchGrades = (overrides = {}) => (
       cohort,
       track,
       fetchOptions,
-    ).then(({ data }) => {
+    ).then(({ data }) => withLearnerDetails(data)).then((data) => {
       dispatch(grades.fetching.received({
         assignmentType: (assignmentType || selectors.filters.assignmentType(getState())),
         cohort,
@@ -101,7 +102,7 @@ export const fetchPrevNextGrades = (endpoint) => (
   (dispatch, getState) => {
     dispatch(grades.fetching.started());
     return getAuthenticatedHttpClient().get(endpoint)
-      .then(({ data }) => data)
+      .then(({ data }) => withLearnerDetails(data))
       .then((data) => {
         dispatch(grades.fetching.received({
           courseId: selectors.app.courseId(getState()),

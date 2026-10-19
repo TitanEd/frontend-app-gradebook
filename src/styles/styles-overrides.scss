@@ -258,3 +258,17 @@
     }
   }
 }
+
+// The grade table scrolls inside its own 600px box (GradesView.scss): keep the column names
+// (assignment labels) in view while scrolling through the learners. Paragon's table container
+// scrolls too (overflow: auto) and would hold the sticky header: the outer box already scrolls
+// both ways, so the inner one stays visible.
+.gradebook-container .pgn__data-table-container {
+  overflow: visible;
+}
+
+.gradebook-container .pgn__data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}

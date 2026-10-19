@@ -22,13 +22,13 @@ import useGradesViewData from './hooks';
 /**
  * <CustomGradesView />
  * Copy of <GradesView /> for the custom UI: custom report, bulk controls and
- * table (with the learner full name), plus class hooks for its styles.
+ * table (with the learner full name and e-mail, for every learner: no "Master's track only"
+ * note), plus class hooks for its styles.
  */
 export const CustomGradesView = ({ updateQueryParams }) => {
   const {
     stepHeadings,
     handleFilterBadgeClose,
-    mastersHint,
   } = useGradesViewData({ updateQueryParams });
   const tableData = useGradebookTableData();
 
@@ -61,7 +61,6 @@ export const CustomGradesView = ({ updateQueryParams }) => {
       <CustomGradebookTable {...tableData} />
 
       <PageButtons />
-      <p>* {mastersHint}</p>
       <EditModal />
 
       <ImportSuccessToast />
